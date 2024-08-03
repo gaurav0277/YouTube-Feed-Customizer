@@ -10,3 +10,12 @@ document.getElementById("save").addEventListener("click", () => {
     });
   });
 });
+
+document.getElementById("quit").addEventListener("click", () => {
+  chrome.storage.sync.remove("topics", () => {
+    console.log("Settings cleared");
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      chrome.tabs.reload(tabs[0].id);
+    });
+  });
+});
